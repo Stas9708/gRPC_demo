@@ -8,7 +8,7 @@ class Greeter(greet_pb2_grpc.GreeterServicer):
     def SayHello(
         self,
         request: greet_pb2.HelloRequest,
-        context: grpc.aio.ServicerContext,
+        context: grpc.ServicerContext,
     ) -> greet_pb2.HelloReply:
         print(f"SayHello received {request}")
         return greet_pb2.HelloReply(message="Hello, %s!" % request.name)
@@ -16,7 +16,7 @@ class Greeter(greet_pb2_grpc.GreeterServicer):
     def SayHelloBothStream(
         self,
         request_iter: Iterator[greet_pb2.HelloRequest],
-        context: grpc.aio.ServicerContext,
+        context: grpc.ServicerContext,
     ) -> Iterable[greet_pb2.HelloReply]:
         for r in request_iter:
             print(f"Stream request {r}")
@@ -24,7 +24,7 @@ class Greeter(greet_pb2_grpc.GreeterServicer):
 
 
 def serve() -> None:
-    server = grpc.aio.server()
+    server = grpc.server()
     greet_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
     listen_addr = "[::]:50051"
     server.add_insecure_port(listen_addr)
