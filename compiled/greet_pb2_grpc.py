@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import greet_pb2 as greet__pb2
+from compiled import greet_pb2 as greet__pb2
 
 GRPC_GENERATED_VERSION = '1.68.1'
 GRPC_VERSION = grpc.__version__
